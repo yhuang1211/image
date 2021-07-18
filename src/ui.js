@@ -192,12 +192,13 @@ export default class Ui {
      *
      * @type {Element}
      */
-    this.nodes.imageEl = makeImage(srcSet, tag, this.CSS.imageEl, attributes);
+    const { pictureEl, el } = makeImage(srcSet, tag, this.CSS.imageEl, attributes);
+    this.nodes.imageEl = pictureEl;
 
     /**
      * Add load event listener
      */
-    this.nodes.imageEl.addEventListener(eventName, () => {
+    el.addEventListener(eventName, () => {
       this.toggleStatus(Ui.status.FILLED);
 
       /**
@@ -289,26 +290,26 @@ export const makeImage = function makeImage(srcSet, tagName, classNames = null, 
   const el = document.createElement(tagName);
 
   if (Array.isArray(classNames)) {
-    el.classList.add(...classNames);
+    pictureEl.classList.add(...classNames);
   } else if (classNames) {
-    el.classList.add(classNames);
+    pictureEl.classList.add(classNames);
   }
 
   for (const attrName in attributes) {
     el[attrName] = attributes[attrName];
   }
 
-  el.loading = "lazy";
   el.src = srcSet.src;
   el.srcSet = srcSet.srcSet;
   el.alt = "Itinerary Image";
   el.width = `${srcSet.width}`;
   el.height = `${srcSet.height}`;
   el.sizes = "650px";
+  el.style = "width: 100%; height: auto";
 
   pictureEl.appendChild(webpSourceEl);
   pictureEl.appendChild(sourceEl);
   pictureEl.appendChild(el);
 
-  return pictureEl;
+  return { pictureEl, el };
 };
