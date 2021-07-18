@@ -147,14 +147,13 @@ export default class Ui {
    * @param {string} url - image source
    * @returns {void}
    */
-  fillImage(url) {
+  fillImage(srcSet) {
     /**
      * Check for a source extension to compose element correctly: video tag for mp4, img — for others
      */
     const tag = /\.mp4$/.test(url) ? 'VIDEO' : 'IMG';
 
     const attributes = {
-      src: url,
     };
 
     /**
@@ -193,7 +192,7 @@ export default class Ui {
      *
      * @type {Element}
      */
-    this.nodes.imageEl = make(tag, this.CSS.imageEl, attributes);
+    this.nodes.imageEl = makeImage(srcSet, tag, this.CSS.imageEl, attributes);
 
     /**
      * Add load event listener
@@ -272,4 +271,44 @@ export const make = function make(tagName, classNames = null, attributes = {}) {
   }
 
   return el;
+};
+
+export const makeImage = function makeImage(srcSet, tagName, classNames = null, attributes = {}) {
+  const pictureEl = document.createElement("picture")
+  const webpSourceEl = document.createElement("source")
+  const sourceEl = document.createElement("source")
+
+  webpSourceEl.type = "image/webp"
+  webpSourceEl.sizes = "650px"
+  webpSourceEl.srcset = srcSet.webpSrcSet
+
+  sourceEl.type = "image/jpeg"
+  sourceEl.sizes = "650px"
+  sourceEl.srcset = srcSet.srcSet
+
+  const el = document.createElement(tagName);
+
+  if (Array.isArray(classNames)) {
+    el.classList.add(...classNames);
+  } else if (classNames) {
+    el.classList.add(classNames);
+  }
+
+  for (const attrName in attributes) {
+    el[attrName] = attributes[attrName];
+  }
+
+  el.loading = "lazy";
+  el.src = srcSet.src;
+  el.srcSet = srcSet.srcSet;
+  el.alt = "Itinerary Image";
+  el.width = `${srcSet.width}`;
+  el.height = `${rcSet.height}`;
+  el.sizes = "650px";
+
+  pictureEl.appendChild(webpSourceEl);
+  pictureEl.appendChild(sourceEl);
+  pictureEl.appendChild(el);
+
+  return pictureEl;
 };

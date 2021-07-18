@@ -328,8 +328,8 @@ export default class ImageTool {
   set image(file) {
     this._data.file = file || {};
 
-    if (file && file.url) {
-      this.ui.fillImage(file.url);
+    if (file && file.srcSet) {
+      this.ui.fillImage(file.srcSet);
     }
   }
 
