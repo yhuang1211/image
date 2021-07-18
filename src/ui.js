@@ -303,7 +303,7 @@ export const makeImage = function makeImage(srcSet, tagName, classNames = null, 
   el.srcSet = srcSet.srcSet;
   el.alt = "Itinerary Image";
   el.width = `${srcSet.width}`;
-  el.height = `${rcSet.height}`;
+  el.height = `${srcSet.height}`;
   el.sizes = "650px";
 
   pictureEl.appendChild(webpSourceEl);
