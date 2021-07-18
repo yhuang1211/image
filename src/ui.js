@@ -274,17 +274,17 @@ export const make = function make(tagName, classNames = null, attributes = {}) {
 };
 
 export const makeImage = function makeImage(srcSet, tagName, classNames = null, attributes = {}) {
-  const pictureEl = document.createElement("picture")
-  const webpSourceEl = document.createElement("source")
-  const sourceEl = document.createElement("source")
+  const pictureEl = document.createElement("picture");
+  const webpSourceEl = document.createElement("source");
+  const sourceEl = document.createElement("source");
 
-  webpSourceEl.type = "image/webp"
-  webpSourceEl.sizes = "650px"
-  webpSourceEl.srcset = srcSet.webpSrcSet
+  webpSourceEl.type = "image/webp";
+  webpSourceEl.sizes = "650px";
+  webpSourceEl.srcset = srcSet.webpSrcSet;
 
-  sourceEl.type = "image/jpeg"
-  sourceEl.sizes = "650px"
-  sourceEl.srcset = srcSet.srcSet
+  sourceEl.type = "image/jpeg";
+  sourceEl.sizes = "650px";
+  sourceEl.srcset = srcSet.srcSet;
 
   const el = document.createElement(tagName);
 
